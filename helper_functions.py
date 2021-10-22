@@ -32,12 +32,14 @@ scareface = \
 
 dunk = "**DUNK**"
 
+
 async def dunker(message):
     i = 3
-    while i <= 1 :
+    while i <= 1:
         await message.channel.send(dunk)
         await asyncio.sleep(2)
-        i-=1
+        i -= 1
+
 
 async def jubla(message):
     await dunker(message)

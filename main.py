@@ -12,20 +12,26 @@ import keep_alive
 
 token = os.environ['TOKEN']
 bot = commands.Bot(command_prefix='!')
+
+
 @bot.command()
 async def test(ctx, arg):
     await ctx.send(arg)
 
+
 @bot.command()
 async def ping(ctx):
-    embed = discord.Embed(title="Pong!",description=f"Drifveriet svarar snabbare än ljusets hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
-    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
+    embed = discord.Embed(
+        title="Pong!", description=f"Drifveriet svarar snabbare än ljusets hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
+    embed.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
     await ctx.send(embed=embed)
 
 
 @bot.event
 async def on_ready():
     print("Drifvare online.")
+
 
 @bot.event
 async def on_message(message):
@@ -63,8 +69,6 @@ async def on_message(message):
         await helper_functions.jubla(message)
 
     await bot.process_commands(message)
-
-
 
 
 keep_alive.keep_alive()
