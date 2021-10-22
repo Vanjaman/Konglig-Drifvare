@@ -18,7 +18,7 @@ async def test(ctx, arg):
 
 @bot.command()
 async def ping(ctx):
-    embed = discord.Embed(title="Pong!",description=f"Drifveriet svarar snabbare än ljuset hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
+    embed = discord.Embed(title="Pong!",description=f"Drifveriet svarar snabbare än ljusets hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
     await ctx.send(embed=embed)
 
