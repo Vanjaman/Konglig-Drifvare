@@ -1,5 +1,6 @@
 import asyncio
 
+"""Denna modul innehåller hjälpfunktioner till mainmodulen"""
 mentions = 0
 jubla_list = [
     "**jjjjjuuuuuuuuuuuu**",
@@ -33,6 +34,7 @@ dunk = "**DUNK**"
 
 
 async def dunker(message):
+    """Drifveriet dunkar på dörren tre gånger"""
     i = 3
     while i <= 1:
         await message.channel.send(dunk)
@@ -41,6 +43,7 @@ async def dunker(message):
 
 
 async def jubla(message):
+    """Drifveriet dunkar och gör entré, till jublet av åskadarna"""
     await dunker(message)
     message = await message.channel.send("**jjjjj**")
     for x in jubla_list:

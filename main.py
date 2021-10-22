@@ -8,7 +8,7 @@ from helper_functions import scareface
 from helper_functions import offset_list
 from helper_functions import mentions
 
-
+"""Denna modul är main modulen som faktiskt hanterar discord delen av boten"""
 import keep_alive
 
 token = os.environ['TOKEN']
@@ -16,12 +16,8 @@ bot = commands.Bot(command_prefix='!')
 
 
 @bot.command()
-async def test(ctx, arg):
-    await ctx.send(arg)
-
-
-@bot.command()
 async def ping(ctx):
+    """Kommando som visar bottens svarstid"""
     embed = discord.Embed(
         title="Pong!",
         description=f"""Drifveriet svarar snabbare än ljusets hastighet,
@@ -34,11 +30,13 @@ async def ping(ctx):
 
 @bot.event
 async def on_ready():
+    """Skriver ut att botten är online"""
     print("Drifvare online.")
 
 
 @bot.event
 async def on_message(message):
+    """Hanterar meddelander reaktioner som triggar boten"""
     global mentions
     if message.author == bot.user:
         return
