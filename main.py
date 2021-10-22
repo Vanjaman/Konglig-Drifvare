@@ -1,46 +1,38 @@
 import os
 import asyncio
 import discord
+import helper_functions
+from helper_functions import scareface
+from helper_functions import offset_list
+from helper_functions import mentions
+from discord.ext import commands
 import random
 
 import keep_alive
 
 token = os.environ['TOKEN']
-client = discord.Client()
+bot = commands.Bot(command_prefix='$')
+@bot.command()
+async def test(ctx, arg):
+    await ctx.send(arg)
 
-global mentions
-mentions = 0
-offset_list = [0, 0, 0, 0, 0, 0, 0, 0, 7, 12, 15]
-scareface = \
-    "⠀⠀⠀⢠⠣⡑⡕⡱⡸⡀⡢⡂⢨⠀⡌\n" \
-    "⠀⠀⠀⡕⢅⠕⢘⢜⠰⣱⢱⢱⢕⢵⠰⡱⡱⢘⡄⡎⠌⡀\n" \
-    "⠀⠀⠱⡸⡸⡨⢸⢸⢈⢮⡪⣣⣣⡣⡇⣫⡺⡸⡜⡎⡢\n" \
-    "⠀⠀⢱⢱⠵⢹⢸⢼⡐⡵⣝⢮⢖⢯⡪⡲⡝⠕⣝⢮⢪⢀\n" \
-    "⢀⠂⡮⠁⠐⠀⡀⡀⠑⢝⢮⣳⣫⢳⡙⠐⠀⡠⡀⠀⠑\n" \
-    "⢠⠣⠐⠀    ⭕     ⠀⢪⢺⣪⢣⠀⡀ ⭕   .⠈⡈⠀⡀\n" \
-    "⠐⡝⣕⢄⡀⠑⢙⠉⠁⡠⡣⢯⡪⣇⢇⢀⠀⠡⠁⠁⡠⡢⠡\n" \
-    "⠀⢑⢕⢧⣣⢐⡄⣄⡍⡎⡮⣳⢽⡸⡸⡊⣧⣢⠀⣕⠜⡌⠌\n" \
-    "⠀⠀⠌⡪⡪⠳⣝⢞⡆⡇⡣⡯⣞⢜⡜⡄⡧⡗⡇⠣⡃⡂\n" \
-    "⠀⠀⠀⠨⢊⢜⢜⣝⣪⢪⠌⢩⢪⢃⢱⣱⢹⢪⢪⠊\n" \
-    "  ⠀⠀⠐⠡⡑⠜⢎⢗⢕⢘⢜⢜⢜⠜⠕⠡⠡⡈\n" \
-    "⠀⠀⠀⠀⠀⠁⡢⢀⠈⠨⣂⡐⢅⢕⢐⠁⠡⠡⢁\n" \
-    "⠀⠀⠀⠀⠀⠀⢈⠢⠀⡀⡐⡍⢪⢘⠀⠀⠡⡑⡀\n" \
-    "⠀⠀⠀⠀⠀⠀⠀⠨⢂⠀⠌⠘⢜⠘⠀⢌⠰⡈\n" \
-    "⠀⠀⠀⠀⠀⠀⠀⠀⢑⢸⢌⢖⢠⢀⠪⡂\n\n" \
-    "                    L̶̡̛͙͍̜̬̬̣̝͇̼̤̤̣̥͋̽͒͑̄̿̐̋̇͂̃̀o̴̡̨̗͔̜̟̬̤̭̤̙̥̘͋̅͜ͅo̷̦̠̮̹̼̥͎͇̲̰͙͐͌̎̓̈́͂̌̇͜k̵̡̡̢̠̬̜͈̭̻̘̮̼̱̱͍̐̿̈́̅͊͐͊͐̚̚͘͠͠ ̶͓̪̯̗̒̊̃̿͌̈́̂͗͂͝͠b̴̨͇͍͒̀̈͝ͅẹ̴̬̉̍̄͘͠h̴̟͓̻͔͝į̶̧̧̤̦͓͕̑͝n̸͎̻̬̊̄̆̈́̒̃d̸̡̡͓̼͉͈̮͈͖̤͔̎̂͑̍̔̅͋̀̃́̒̕͜ ̴̼̘͙͉̺̮̭̭͍̰̍͗̓̐͂͂͒͒͠y̴̢͖̺̩̗̖̰͙͕̜͖̹͕͒̄ͅǫ̶̢͕̳͖̣͈̰̖̜̙̬̓͌̂͑̉̅̾͆̀̊͜ṵ̵͕͔͙͖̣̾̄̀̃"
+@bot.command()
+async def ping(ctx):
+    embed = discord.Embed(title="Pong!",description=f"Drifveriet svarar snabbare än ljuset hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
+    await ctx.send(embed=embed)
 
 
-@client.event
+@bot.event
 async def on_ready():
     print("Drifvare online.")
 
-
-@client.event
+@bot.event
 async def on_message(message):
     global mentions
-    if message.author == client.user:
+    if message.author == bot.user:
         return
-    mention = f'<@!{client.user.id}>'
+    mention = f'<@!{bot.user.id}>'
 
     if mention in message.content:
         mentions += 1
@@ -68,29 +60,15 @@ async def on_message(message):
         await message.channel.send("dale")
 
     elif "betong" in message.content.lower():
-        await message.channel.send("Bakom 30 meter betong, 4 blyinfattade pansardörrar och 61 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har inte gått bra. Inte så bra alls. Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.")
+        await message.channel.send("Bakom 30 meter betong, 4 blyinfattade pansardörrar och 61 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har *inte* gått bra. **Inte så bra alls!!!** ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***")
 
     elif random.randint(0, 500) == 420:
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        message = await message.channel.send("**jjjjj**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuu**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuu**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllll**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaa**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaaaaaaaaaaaaa**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!1!**")
+        await helper_functions.jubla(message)
+
+    await bot.process_commands(message)
+
+
 
 
 keep_alive.keep_alive()
-client.run(token)
+bot.run(token)
