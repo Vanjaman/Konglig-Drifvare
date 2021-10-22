@@ -57,7 +57,7 @@ async def on_message(message):
         await message.channel.send("dale")
 
     elif "betong" in message.content.lower():
-        await message.channel.send("Bakom 30 meter betong, 5 blyinfattade pansardörrar och 61 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har *inte* gått bra. **Inte så bra alls!!!** ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***")
+        await message.channel.send("Bakom 30 meter betong, 5 blyinfattade pansardörrar och 60 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har *inte* gått bra. **Inte så bra alls!!!** ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***")
 
     elif random.randint(0, 500) == 420:
         await helper_functions.jubla(message)
