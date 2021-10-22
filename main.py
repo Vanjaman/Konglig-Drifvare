@@ -11,7 +11,7 @@ import random
 import keep_alive
 
 token = os.environ['TOKEN']
-bot = commands.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='!')
 @bot.command()
 async def test(ctx, arg):
     await ctx.send(arg)
@@ -49,9 +49,6 @@ async def on_message(message):
 
     elif mention in message.content:
         await message.channel.send("Drifveriet ser ~~nØllan~~ ettan.")
-
-    elif message.content.startswith("ping"):
-        await message.channel.send("pong")
 
     elif "en hel del" in message.content.lower():
         await message.channel.send("mmmmMMM**PENGAR**")
