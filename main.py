@@ -4,12 +4,13 @@ import random
 import discord
 from discord.ext import commands
 import helper_functions
+import keep_alive
 from helper_functions import scareface
 from helper_functions import offset_list
 from helper_functions import mentions
 
 """Denna modul är main modulen som faktiskt hanterar discord delen av boten"""
-import keep_alive
+
 
 token = os.environ['TOKEN']
 bot = commands.Bot(command_prefix='!')
