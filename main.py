@@ -21,8 +21,8 @@ async def ping(ctx):
     """Kommando som visar bottens svarstid"""
     embed = discord.Embed(
         title="Pong!",
-        description=f"""Drifveriet svarar normalt sett snabbare än ljusets hastighet,
-         men för att ~~nØllans~~ ettans synapser skall hängar med
+        description=f"""Drifveriet svarar vanligtvis snabbare än ljusets hastighet,
+         men för att ~~nØllans~~ ettans synapser skall hänga med
          svarar vi på {round(bot.latency*1000,4)} ms"""
     )
     embed.set_thumbnail(
