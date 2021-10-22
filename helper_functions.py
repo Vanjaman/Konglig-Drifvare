@@ -1,6 +1,5 @@
 import asyncio
 
-global mentions
 mentions = 0
 jubla_list = [
     "**jjjjjuuuuuuuuuuuu**",

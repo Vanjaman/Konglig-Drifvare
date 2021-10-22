@@ -1,12 +1,13 @@
 import os
 import asyncio
+import random
 import discord
+from discord.ext import commands
 import helper_functions
 from helper_functions import scareface
 from helper_functions import offset_list
 from helper_functions import mentions
-from discord.ext import commands
-import random
+
 
 import keep_alive
 
@@ -22,7 +23,10 @@ async def test(ctx, arg):
 @bot.command()
 async def ping(ctx):
     embed = discord.Embed(
-        title="Pong!", description=f"Drifveriet svarar snabbare än ljusets hastighet, vilket avrundas uppåt till {round(bot.latency*1000,4)} ms")
+        title="Pong!",
+        description=f"""Drifveriet svarar snabbare än ljusets hastighet,
+         vilket avrundas uppåt till {round(bot.latency*1000,4)} ms"""
+    )
     embed.set_thumbnail(
         url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
     await ctx.send(embed=embed)
@@ -48,7 +52,8 @@ async def on_message(message):
     if mentions == 3 or message.content.count(mention) == 3:
         message = await message.channel.send(scareface)
         for _ in range(4):
-            await message.edit(content="\n".join([random.choice(offset_list) * " " + x for x in scareface.split("\n")]))
+            await message.edit(content="\n".join(
+                [random.choice(offset_list) * " " + x for x in scareface.split("\n")]))
             await asyncio.sleep(random.choice([0, 0, 0.25, 0.5, 1]))
         await message.edit(content=scareface)
         mentions = 0
@@ -63,7 +68,12 @@ async def on_message(message):
         await message.channel.send("dale")
 
     elif "betong" in message.content.lower():
-        await message.channel.send("Bakom 30 meter betong, 5 blyinfattade pansardörrar och 60 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har *inte* gått bra. **Inte så bra alls!!!** ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***")
+        await message.channel.send(
+            """Bakom 30 meter betong, 5 blyinfattade pansardörrar och 60 rader pythonkod har det 
+            Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. 
+            Det har *inte* gått bra. **Inte så bra alls!!!** 
+            ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.
+            ***""")
 
     elif random.randint(0, 500) == 420:
         await helper_functions.jubla(message)
