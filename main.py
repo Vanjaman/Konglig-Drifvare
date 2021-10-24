@@ -1,46 +1,48 @@
 import os
 import asyncio
-import discord
 import random
-
+import discord
+from discord.ext import commands
+import helper_functions
 import keep_alive
+from helper_functions import scareface
+from helper_functions import offset_list
+from helper_functions import mentions
+
+"""Denna modul är main modulen som faktiskt hanterar discord delen av boten"""
+
 
 token = os.environ['TOKEN']
-client = discord.Client()
-
-global mentions
-mentions = 0
-offset_list = [0, 0, 0, 0, 0, 0, 0, 0, 7, 12, 15]
-scareface = \
-    "⠀⠀⠀⢠⠣⡑⡕⡱⡸⡀⡢⡂⢨⠀⡌\n" \
-    "⠀⠀⠀⡕⢅⠕⢘⢜⠰⣱⢱⢱⢕⢵⠰⡱⡱⢘⡄⡎⠌⡀\n" \
-    "⠀⠀⠱⡸⡸⡨⢸⢸⢈⢮⡪⣣⣣⡣⡇⣫⡺⡸⡜⡎⡢\n" \
-    "⠀⠀⢱⢱⠵⢹⢸⢼⡐⡵⣝⢮⢖⢯⡪⡲⡝⠕⣝⢮⢪⢀\n" \
-    "⢀⠂⡮⠁⠐⠀⡀⡀⠑⢝⢮⣳⣫⢳⡙⠐⠀⡠⡀⠀⠑\n" \
-    "⢠⠣⠐⠀    ⭕     ⠀⢪⢺⣪⢣⠀⡀ ⭕   .⠈⡈⠀⡀\n" \
-    "⠐⡝⣕⢄⡀⠑⢙⠉⠁⡠⡣⢯⡪⣇⢇⢀⠀⠡⠁⠁⡠⡢⠡\n" \
-    "⠀⢑⢕⢧⣣⢐⡄⣄⡍⡎⡮⣳⢽⡸⡸⡊⣧⣢⠀⣕⠜⡌⠌\n" \
-    "⠀⠀⠌⡪⡪⠳⣝⢞⡆⡇⡣⡯⣞⢜⡜⡄⡧⡗⡇⠣⡃⡂\n" \
-    "⠀⠀⠀⠨⢊⢜⢜⣝⣪⢪⠌⢩⢪⢃⢱⣱⢹⢪⢪⠊\n" \
-    "  ⠀⠀⠐⠡⡑⠜⢎⢗⢕⢘⢜⢜⢜⠜⠕⠡⠡⡈\n" \
-    "⠀⠀⠀⠀⠀⠁⡢⢀⠈⠨⣂⡐⢅⢕⢐⠁⠡⠡⢁\n" \
-    "⠀⠀⠀⠀⠀⠀⢈⠢⠀⡀⡐⡍⢪⢘⠀⠀⠡⡑⡀\n" \
-    "⠀⠀⠀⠀⠀⠀⠀⠨⢂⠀⠌⠘⢜⠘⠀⢌⠰⡈\n" \
-    "⠀⠀⠀⠀⠀⠀⠀⠀⢑⢸⢌⢖⢠⢀⠪⡂\n\n" \
-    "                    L̶̡̛͙͍̜̬̬̣̝͇̼̤̤̣̥͋̽͒͑̄̿̐̋̇͂̃̀o̴̡̨̗͔̜̟̬̤̭̤̙̥̘͋̅͜ͅo̷̦̠̮̹̼̥͎͇̲̰͙͐͌̎̓̈́͂̌̇͜k̵̡̡̢̠̬̜͈̭̻̘̮̼̱̱͍̐̿̈́̅͊͐͊͐̚̚͘͠͠ ̶͓̪̯̗̒̊̃̿͌̈́̂͗͂͝͠b̴̨͇͍͒̀̈͝ͅẹ̴̬̉̍̄͘͠h̴̟͓̻͔͝į̶̧̧̤̦͓͕̑͝n̸͎̻̬̊̄̆̈́̒̃d̸̡̡͓̼͉͈̮͈͖̤͔̎̂͑̍̔̅͋̀̃́̒̕͜ ̴̼̘͙͉̺̮̭̭͍̰̍͗̓̐͂͂͒͒͠y̴̢͖̺̩̗̖̰͙͕̜͖̹͕͒̄ͅǫ̶̢͕̳͖̣͈̰̖̜̙̬̓͌̂͑̉̅̾͆̀̊͜ṵ̵͕͔͙͖̣̾̄̀̃"
+bot = commands.Bot(command_prefix='!')
 
 
-@client.event
+@bot.command()
+async def ping(ctx):
+    """Kommando som visar bottens svarstid"""
+    embed = discord.Embed(
+        title="Pong!",
+        description=f"""Drifveriet svarar vanligtvis snabbare än ljusets hastighet,
+         men för att ~~nØllans~~ ettans synapser skall hänga med
+         svarar vi på {round(bot.latency*1000)} ms"""
+    )
+    embed.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/572159063505371137/900800963651199086/drifveriet.png")
+    await ctx.send(embed=embed)
+
+
+@bot.event
 async def on_ready():
+    """Skriver ut att botten är online"""
     print("Drifvare online.")
 
 
-@client.event
+@bot.event
 async def on_message(message):
+    """Hanterar meddelander reaktioner som triggar boten"""
     global mentions
-    if message.author == client.user:
+    if message.author == bot.user:
         return
-    mention = f'<@!{client.user.id}>'
+    mention = f'<@!{bot.user.id}>'
 
     if mention in message.content:
         mentions += 1
@@ -50,16 +52,14 @@ async def on_message(message):
     if mentions == 3 or message.content.count(mention) == 3:
         message = await message.channel.send(scareface)
         for _ in range(4):
-            await message.edit(content="\n".join([random.choice(offset_list) * " " + x for x in scareface.split("\n")]))
+            await message.edit(content="\n".join(
+                [random.choice(offset_list) * " " + x for x in scareface.split("\n")]))
             await asyncio.sleep(random.choice([0, 0, 0.25, 0.5, 1]))
         await message.edit(content=scareface)
         mentions = 0
 
     elif mention in message.content:
         await message.channel.send("Drifveriet ser ~~nØllan~~ ettan.")
-
-    elif message.content.startswith("ping"):
-        await message.channel.send("pong")
 
     elif "en hel del" in message.content.lower():
         await message.channel.send("mmmmMMM**PENGAR**")
@@ -68,29 +68,19 @@ async def on_message(message):
         await message.channel.send("dale")
 
     elif "betong" in message.content.lower():
-        await message.channel.send("Bakom 30 meter betong, 4 blyinfattade pansardörrar och 61 rader pythonkod har det Kongliga Drifveriet observerat ~~nøllans~~ ettans discordkunskaper. Det har inte gått bra. Inte så bra alls. Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.")
+        await message.channel.send(
+            ("Bakom 30 meter betong, 5 blyinfattade pansardörrar och 60 rader pythonkod har det"
+             " Kongliga Drifveriet observerat ~~nØllans~~ ettans discordkunskaper."
+             " Det har *inte* gått bra. **Inte så bra alls!!!**"
+             " ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***"
+             )
+        )
 
     elif random.randint(0, 500) == 420:
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        await message.channel.send("**DUNK**")
-        await asyncio.sleep(2)
-        message = await message.channel.send("**jjjjj**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuu**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuu**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllll**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaa**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaaaaaaaaaaaaa**")
-        await asyncio.sleep(1)
-        await message.edit(content="**jjjjjuuuuuuuuuuuuuuuuuubbbllllaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!1!**")
+        await helper_functions.jubla(message)
+
+    await bot.process_commands(message)
 
 
 keep_alive.keep_alive()
-client.run(token)
+bot.run(token)
