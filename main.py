@@ -13,7 +13,7 @@ from helper_functions import mentions
 
 
 token = os.environ['TOKEN']
-bot = commands.Bot(command_prefix='?')
+bot = commands.Bot(command_prefix='$')
 
 
 @bot.command()
@@ -21,8 +21,8 @@ async def ping(ctx):
     """Kommando som visar bottens svarstid"""
     embed = discord.Embed(
         title="Pong!",
-        description=("Drifveriet svarar vanligtvis snabbare än ljusets hastighet!,"
-                    "men för att ~~nØllans~~ ettans synapser skall hänga med"
+        description=("Drifveriet svarar vanligtvis snabbare än ljusets hastighet, "
+                    "men för att ~~nØllans~~ ettans synapser skall hänga med "
                     f"svarar vi på {round(bot.latency*1000)} ms")
     )
     embed.set_thumbnail(
