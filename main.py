@@ -13,7 +13,7 @@ from helper_functions import mentions
 
 
 token = os.environ['TOKEN']
-bot = commands.Bot(command_prefix='?')
+bot = commands.Bot(command_prefix='$')
 
 
 @bot.command()
