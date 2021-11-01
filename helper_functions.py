@@ -48,12 +48,3 @@ async def jubla(message):
         await asyncio.sleep(1)
         await message.edit(content=x)
 
-
-
-async def jubla(message):
-    """Drifveriet dunkar och gör entré, till jublet av åskadarna"""
-    await dunker(message)
-    message = await message.channel.send("**jjjjj**")
-    for x in jubla_list:
-        await asyncio.sleep(1)
-        await message.edit(content=x)
