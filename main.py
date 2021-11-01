@@ -76,8 +76,8 @@ async def on_message(message):
              )
         )
 
-    elif random.randint(0, 420) == 420:
-        if message.channel.category not in ("═════ Kurskanaler ═════", "═══ \"Avslutade\" Kurser  ══"):
+    elif random.randint(0, 420) == 69:
+        if message.channel.category.name not in ("═════ Kurskanaler ═════", "═══ \"Avslutade\" Kurser  ══"):
             await helper_functions.jubla(message)
 
     await bot.process_commands(message)
