@@ -36,8 +36,8 @@ dunk = "**DUNK**"
 async def dunker(message):
     """Drifveriet dunkar på dörren tre gånger"""
     for x in range(3):
-      await asyncio.sleep(2)
-      await message.channel.send("**DUNK**")
+      await asyncio.sleep(1)
+      await message.channel.send(dunk)
 
 
 async def jubla(message):
