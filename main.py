@@ -2,6 +2,7 @@ import os
 import asyncio
 import random
 import discord
+import subprocess
 from discord.ext import commands
 import helper_functions
 import keep_alive
@@ -68,11 +69,14 @@ async def on_message(message):
         await message.channel.send("dale")
 
     elif "betong" in message.content.lower():
+        p = subprocess.Popen("cat *.py | wc -l", shell=True, stdout=subprocess.PIPE)
+        (rows, err) = p.communicate()
+        rows = int(rows)
         await message.channel.send(
-            ("Bakom 30 meter betong, 5 blyinfattade pansardörrar och 60 rader pythonkod har det"
-             " Kongliga Drifveriet observerat ~~nØllans~~ ettans discordkunskaper."
-             " Det har *inte* gått bra. **Inte så bra alls!!!**"
-             " ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***"
+            (f"Bakom 30 meter betong, 5 blyinfattade pansardörrar och {rows} rader pythonkod har det"
+              " Kongliga Drifveriet observerat ~~nØllans~~ ettans discordkunskaper."
+              " Det har *inte* gått bra. **Inte så bra alls!!!**"
+              " ***Att säga att ettan är bra på discord är lite som att tro att drifveriet inte kan höra vad du tänker just nu.***"
              )
         )
 
