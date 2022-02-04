@@ -63,7 +63,13 @@ async def on_message(message):
         await message.channel.send("Drifveriet ser ~~nØllan~~ ettan.")
 
     elif "en hel del" in message.content.lower():
-        await message.channel.send("mmmmMMM**PENGAR**")
+        messageArr = message.content.split(" ")
+        index = messageArr.index("del")
+        if index < len(messageArr)-1:
+            m = messageArr[index+1].upper()
+        else:
+            m = "PENGAR" #Default om det inte är något efter 'del'
+        await message.channel.send("mmmmMMM**" + m + "**")
 
     elif any(x in message.content.lower() for x in ("pit bull", "pitbull")):
         await message.channel.send("dale")
